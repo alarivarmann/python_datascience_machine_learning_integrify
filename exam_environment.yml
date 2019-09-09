@@ -1,0 +1,36 @@
+# to run conda in debug mode, use conda update --debug numpy
+# conda create --name coursetest --clone python_for_ml
+
+# to Create new Conda environment from this file, run:
+# conda env create -f exam_environment.yml
+
+name: exam_environment
+channels:
+    - conda-forge
+    - pytorch
+    - anaconda
+    - auto
+dependencies:      
+- python==3.6.3
+- pandas
+- numpy
+- scikit-learn
+- matplotlib
+- pip  
+- sympy 
+#- torchvision-cpu 
+- torchvision-gpu
+- pytorch-gpu 
+# check if pytorch using gpu: torch.cuda.is_available()  https://stackoverflow.com/questions/48152674/how-to-check-if-pytorch-is-using-the-gpu
+# afterwards when training, use watch -n 2 nvidia-smi
+# - torchvision is image and video datasets
+- seaborn 
+- scipy 
+- statsmodels 
+- jupyter_client 
+- jupyter_core 
+- notebook 
+- jupyter_contrib_nbextensions
+- jupyter_nbextensions_configurator
+- jupyterlab
+

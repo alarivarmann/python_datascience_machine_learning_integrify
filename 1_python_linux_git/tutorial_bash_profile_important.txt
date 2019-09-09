@@ -1,0 +1,83 @@
+https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe
+People recommend avoiding virtualenv for Python 3.3+ and use venv instead
+To create a new virtual environment you would type:
+# To switch Python version in Anaconda env, just do conda install python=3.6.0
+# NB! Creating virtualenvs in off the main drive might fail!
+sudo apt-get install python3-venv
+python3 -m venv testenv # last is path of the environment
+python3.7 -m venv scvi
+virtualenv env -p python3.6
+source testenv/bin/activate
+# https://docs.python.org/3/library/venv.html
+Consequently I would avoid virtualenvwrapper and pipenv. pyvenv is deprecated. pyenv seems to be used often where virtualenv is used but I would stay away from it also since I think venv also does what pyenv is built for.
+
+venv creates virtual environments in the shell that are fresh and sandboxed, with user-installable libraries, and it's multi-python safe. Fresh because virtual environments only start with the standard libraries that ship with python, you have to install any other libraries all over again with pip install while the virtual environment is active. Sandboxed because none of these new library installs are visible outside the virtual environment, so you can delete the whole environment and start again without worrying about impacting your base python install. User-installable libraries because the virtual environment's target folder is created without sudo in some directory you already own, so you won't need sudo permissions to install libraries into it. Finally it is multi-python safe, since when virtual environments activate, the shell only sees the python version (3.4, 3.5 etc.) that was used to build that virtual environment.
+
+## first thing to figure out is your pip ENV
+pip install --upgrade pip==9.0.3
+pip install -U pip
+pip3 install --upgrade pip
+
+# https://medium.com/@gitudaniel/installing-virtualenvwrapper-for-python3-ad3dfea7c717
+# https://www.tutorialspoint.com/python/python_environment.htm
+# https://medium.com/the-andela-way/configuring-python-environment-with-virtualenvwrapper-8745c2895745
+
+####################### BASICS ##########################
+Programs and other executable files can be in many directories, so operating systems provide a search path that lists the directories that the OS searches for executables.
+
+The path is stored in an environment variable, which is a named string maintained by the operating system. This variable contains information available to the command shell and other programs.
+
+The path variable is named as PATH in Unix or Path in Windows (Unix is case sensitive; Windows is not).
+
+In Mac OS, the installer handles the path details. To invoke the Python interpreter from any particular directory, you must add the Python directory to your path.
+
+To edit path:
+export PATH="$PATH:/home/alaridl/anaconda3/bin/python"
+######################################################################################3
+pip3 install virtualenv
+pip3 install virtualenvwrapper # now virtualenvwrapper is installed to ~/.local/bin/ , so you need some customization
+# or maybe better
+
+That installation installs virtualenvwrapper in the /usr/local/bin directory.
+virtualenvwrapper provides a set of commands which makes working with virtual environments much more pleasant. It also places all your virtual environments in one place.
+nano ~/.profile on ubuntu , ~/.bashrc on MAC?
+
+# if you get this error
+#virtualenvwrapper.sh: There was a problem running the initialization hooks.
+#If Python could not import the module virtualenvwrapper.hook_loader,
+#check that virtualenvwrapper has been installed for
+#VIRTUALENVWRAPPER_PYTHON=/usr/bin/python and that PATH is set properly.
+
+# IF YOU HAVE PROBLEMS SETTING UP VIRTUALENV, THEN MAKE SURE YOU USE A SPECIFIC VER OF PYTHON
+Just use the --python (or short -p) option when creating your virtualenv instance to specify the Python executable you want to use, e.g.:
+
+
+pyvenv /path/to/new/virtual/environment
+
+
+
+##################### OPTION 1 ###############
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+# if you use Python3, it may be instead
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+
+$HOME # TO see some variable, e.g. HOME
+################# OPTION 2 : CUSTOMIZATION ##################
+
+nano ~/.profile
+# and add these lines
+alias python=python3
+export PYTHONPATH = /home/alaridl/anaconda3/bin/python
+export WORKON_HOME=/home/alaridl/pCloudDrive/W/.virtualenvs
+export PROJECT_HOME=/home/alaridl/pCloudDrive/W/
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+
+# and the most important command
+source ~/.local/bin/virtualenvwrapper.sh
+
+
+########### TO FIND A FILE ########
+find / -name
+
+find / -name dl_projects_combined
